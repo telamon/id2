@@ -1,0 +1,28 @@
+{
+  "name": "id2",
+  "version": "0.1.0",
+  "description": "Interdimensional Identity",
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "test": "tape test.js",
+    "debug": "node inspect $(npm bin)/tape test.js",
+    "prepublishOnly": "standard && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://https://github.com/telamon/id2"
+  },
+  "author": "Tony Ivanov <telamohn@gmail.com>",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/telamon/id2"
+  },
+  "homepage": "https://github.com/telamon/id2",
+  "dependencies": {
+    "sodium-universal": "^3.0.1"
+  },
+  "devDependencies": {
+    "tape": "^5.0.1"
+  }
+}
