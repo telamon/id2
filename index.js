@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+/* eslint-disable camelcase */
 const {
   crypto_sign_BYTES,
   crypto_sign_PUBLICKEYBYTES,
@@ -11,6 +12,8 @@ const {
 
 const SIZE_PUBLIC = crypto_sign_PUBLICKEYBYTES
 const SIZE_SECRET = crypto_sign_SECRETKEYBYTES
+/* eslint-enable camelcase */
+
 const BLANK32 = Buffer.alloc(32).fill(0)
 
 class Identity {
@@ -41,7 +44,7 @@ class Identity {
   get secret () { return this.secretKey }
   set secret (v) { this.secretKey = v }
 
-  sign (message)  {
+  sign (message) {
     if (!this.hasSecret) throw new Error('SecretNotAvailable')
     const signature = Buffer.allocUnsafe(crypto_sign_BYTES)
     crypto_sign_detached(signature, message, this.secretKey)
@@ -87,30 +90,5 @@ class Identity {
 
   static encodingLength (id) { return SIZE_SECRET }
 }
-
-/// previous impl.
-
-//
-// const { signPair } = require('cryptology')
-/* WIP
-class DerivedIdentity extends Identity {
-  constructor (mk = null) {
-    super()
-    this.master = mk
-    if (!this.master) {
-      this.master = Buffer.alloc(crypto_kdf_KEYBYTES)
-      crypto_kdf_keygen(this.master)
-    }
-    // Signing keys
-    this.sig = Util.deriveSignPair(this.master)
-    this.box = Util.deriveBoxPair(this.master)
-  }
-
-  sign (m) {
-    if (!Buffer.isBuffer(m)) m = Buffer.from(m)
-    return Util.sign(m, this.sig.sec)
-  }
-}
-*/
 
 module.exports = Identity
