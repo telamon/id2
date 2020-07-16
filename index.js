@@ -20,7 +20,7 @@ class Identity {
   constructor (key) {
     if (typeof key === 'string') key = Buffer.from(key, 'hex')
     // Slice off the public key from the secret
-    if (key.length === SIZE_SECRET) {
+    if (key && key.length === SIZE_SECRET) {
       this.key = key.slice(32)
       this.secretKey = key
       // Set secret to null if the secret bytes are all 0x00.
