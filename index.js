@@ -52,10 +52,13 @@ class Identity {
   }
 
   verify (message, signature) {
-    if (typeof signature === 'string') { // Attempt buffer conversion
+    // Attempt buffer conversion
+    if (typeof signature === 'string') {
       if (signature.match(/^[A-F0-9]+$/i)) signature = Buffer.from(signature, 'hex')
       else signature = Buffer.from(signature, 'base64')
     }
+    // Attempt buffer conversion for message
+    if (typeof message === 'string') Buffer.from(message, 'utf8')
     return crypto_sign_verify_detached(signature, message, this.key)
   }
 
