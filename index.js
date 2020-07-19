@@ -58,7 +58,7 @@ class Identity {
       else signature = Buffer.from(signature, 'base64')
     }
     // Attempt buffer conversion for message
-    if (typeof message === 'string') Buffer.from(message, 'utf8')
+    if (typeof message === 'string') message = Buffer.from(message, 'utf8')
     return crypto_sign_verify_detached(signature, message, this.key)
   }
 
