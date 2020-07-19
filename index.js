@@ -52,6 +52,10 @@ class Identity {
   }
 
   verify (message, signature) {
+    if (typeof signature === 'string') { // Attempt buffer conversion
+      if (signature.match(/^[A-F0-9]+$/i)) signature = Buffer.from(signature, 'hex')
+      else signature = Buffer.from(signature, 'base64')
+    }
     return crypto_sign_verify_detached(signature, message, this.key)
   }
 
