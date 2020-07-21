@@ -46,6 +46,7 @@ class Identity {
 
   sign (message) {
     if (!this.hasSecret) throw new Error('SecretNotAvailable')
+    if (typeof message === 'string') message = Buffer.from(message, 'utf8')
     const signature = Buffer.allocUnsafe(crypto_sign_BYTES)
     crypto_sign_detached(signature, message, this.secretKey)
     return signature
